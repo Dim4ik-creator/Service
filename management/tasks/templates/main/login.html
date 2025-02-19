@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Page</title>
+  <link rel="stylesheet" href="{% static 'css/login.css' %}">
+</head>
+<body>
+  <header>
+    <a href="/" class="logo">Task Manager</a>
+  </header>
+
+  <main class="login-container">
+    <h1>Вход</h1>
+    <form class="login-form" action="{% url 'login' %}" method="POST">
+      {% csrf_token %}
+      <label for="username">Логин или почта</label>
+      <input type="text" id="username" name="username" placeholder="Введите логин или почту" required>
+
+      <label for="password">Пароль</label>
+      <input type="password" id="password" name="password" placeholder="Введите пароль" required>
+      {{ form.errors }}
+      <button type="submit" class="submit-btn">Войти</button>
+
+      <p class="register-link">Нет аккаунта? <a href="{% url 'register' %}">Зарегистрироваться</a></p>
+
+    </form>
+  </main>
+
+  <footer>
+    <p>© 2025 TaskManager</p>
+  </footer>
+</body>
+</html>

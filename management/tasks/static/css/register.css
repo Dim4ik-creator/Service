@@ -1,0 +1,103 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(90deg, #d1c4e9, #ede7f6);
+    color: #333;
+}
+
+header {
+    background: linear-gradient(90deg, #6a1b9a, #5a41be);
+    color: white;
+    padding: 1rem 2rem;
+    text-align: left;
+    font-size: 1.5rem;
+}
+
+.registration-container {
+    max-width: 400px;
+    margin: 3rem auto;
+    background: #c3b9e3;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    color: #512da8;
+    margin-bottom: 1.5rem;
+}
+
+.registration-form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-top: 1rem;
+    color: #512da8;
+    font-weight: bold;
+}
+
+input {
+    padding: 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-top: 0.5rem;
+    font-size: 1rem;
+    background: #f8f9fa;
+}
+
+input:focus {
+    outline: none;
+    border-color: #512da8;
+    box-shadow: 0 0 5px rgba(81, 45, 168, 0.5);
+}
+
+.submit-btn {
+    background: #512da8;
+    color: white;
+    padding: 0.8rem;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    margin-top: 1.5rem;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.submit-btn:hover {
+    background: #673ab7;
+}
+
+footer {
+    text-align: center;
+    padding: 1rem;
+    background: #512da8;
+    color: white;
+    margin-top: 2rem;
+    font-size: 0.9rem;
+}
+header .logo {
+    font-size: 1.8rem;
+    font-weight: bold;
+    text-decoration: none;
+    color: white;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+header .logo:hover {
+    color: #bbdefb;
+}
+messages {
+    margin-top: 1rem;
+    color: #512da8;
+}
