@@ -16,8 +16,8 @@
     <h1>Вход</h1>
     <form class="login-form" action="{% url 'login' %}" method="POST">
       {% csrf_token %}
-      <label for="username">Логин или почта</label>
-      <input type="text" id="username" name="username" placeholder="Введите логин или почту" required>
+      <label for="username">Логин</label>
+      <input type="text" id="username" name="username" placeholder="Введите логин" required>
 
       <label for="password">Пароль</label>
       <input type="password" id="password" name="password" placeholder="Введите пароль" required>

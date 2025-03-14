@@ -5,7 +5,7 @@ from .models import CustomUser
 
 class CustomUserAdmin(UserAdmin):
     # Поля для отображения в списке пользователей
-    list_display = ('username', 'email', 'name', 'is_staff', 'is_active')
+    list_display = ('username', 'name', 'is_staff', 'is_active')
     list_filter = ('is_staff', 'is_superuser', 'is_blocked')  # Добавляем фильтр по блокировке
     # Поля, доступные для редактирования
     fieldsets = (
@@ -19,11 +19,11 @@ class CustomUserAdmin(UserAdmin):
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('username', 'name', 'email', 'password1', 'password2', 'is_staff', 'is_active'),
+            'fields': ('username', 'name', 'password1', 'password2', 'is_staff', 'is_active'),
         }),
     )
 
-    search_fields = ('username', 'email', 'name')
+    search_fields = ('username', 'name')
     ordering = ('username',)
 
 

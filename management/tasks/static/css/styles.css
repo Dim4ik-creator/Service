@@ -169,12 +169,12 @@ footer a:hover {
 
 /* Эффект наведения */
 .btn:hover {
-  background-color: #0056b3;
+  background-color: #6a1b9a;
 }
 
 /* Если нужно выделить кнопку logout своим стилем */
 .logout-btn {
-  background-color: #e74c3c;
+  background-color: #8e44ad;
 }
 
 .logout-btn:hover {

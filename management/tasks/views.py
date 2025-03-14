@@ -1,3 +1,5 @@
+from idlelib.rpc import request_queue
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from .models import CustomUser
 from django.contrib import messages
@@ -15,7 +17,6 @@ def register(request):
     if request.method == 'POST':
         full_name = request.POST.get('full_name')
         username = request.POST.get('username')
-        email = request.POST.get('email')
         password = request.POST.get('password')
         confirm_password = request.POST.get('confirm_password')
 
@@ -29,12 +30,12 @@ def register(request):
             messages.error(request, 'Пользователь с таким логином уже существует.')
             return render(request, 'main/register.html')
 
-        if CustomUser.objects.filter(email=email).exists():
-            messages.error(request, 'Пользователь с таким адресом электронной почты уже существует.')
-            return render(request, 'main/register.html')
+        # if CustomUser.objects.filter(email=email).exists():
+        #     messages.error(request, 'Пользователь с таким адресом электронной почты уже существует.')
+        #     return render(request, 'main/register.html')
 
         # Создание и сохранение пользователя
-        user = CustomUser.objects.create_user(username=username, email=email, password=password)
+        user = CustomUser.objects.create_user(username=username, password=password)
         user.name = full_name  # Django сохраняет только отдельные поля first_name и last_name
         user.save()
         form = CustomUserCreationForm(request.POST)
@@ -74,3 +75,7 @@ def admin_dashboard(request):
     if not request.user.is_superuser:
         return redirect('login')
     return render(request, 'admin_dashboard.html')
+
+@login_required
+def tasks(request):
+    return render(request,"main/tasks.html")
