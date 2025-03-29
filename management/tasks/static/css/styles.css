@@ -198,11 +198,21 @@ footer a:hover {
 }
 
 .task-list {
-  max-height: 359px; /* Ограничиваем высоту */
+  max-height: 400px; /* Ограничиваем высоту */
+  padding-right: 5px; /* Чтобы не накладывался скролл */
   overflow-y: auto; /* Добавляем вертикальную прокрутку */
   padding: 10px;
   list-style: none;
   min-height: 100px; /* Чтобы можно было бросать задачи в пустую колонку */
+}
+
+.task-item {
+    background: white;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 8px;
+    border: 1px solid #ddd;
+    cursor: grab;
 }
 
 .draggable-task {
@@ -215,18 +225,23 @@ footer a:hover {
 }
 
 .draggable-task:hover {
-    transform: scale(1.02);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
 .dima{
-    height: 27.42rem;
-    justify-content: space-between;
+    min-height: 100%;
+    height: 440px;
+    flex-direction: column;
+    display: flex;
     --bs-bg-opacity:1;
     background-color:rgba(var(--bs-light-rgb),1);
 
     }
 
+/*
 .form-container {
     position: relative;
-    z-index: 10; /* Форма поверх других элементов */
-}
+    z-index: 10; */
+/* Форма поверх других элементов *//*
+
+}*/

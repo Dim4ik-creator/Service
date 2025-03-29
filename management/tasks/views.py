@@ -21,6 +21,7 @@ def register(request):
         username = request.POST.get('username')
         password = request.POST.get('password')
         confirm_password = request.POST.get('confirm_password')
+        role = request.POST.get('role')
 
         # Проверка совпадения паролей
         if password != confirm_password:
@@ -33,7 +34,7 @@ def register(request):
             return render(request, 'main/register.html')
 
         # Создание и сохранение пользователя
-        user = CustomUser.objects.create_user(username=username, password=password)
+        user = CustomUser.objects.create_user(username=username, password=password,role=role)
         user.name = full_name  # Django сохраняет только отдельные поля first_name и last_name
         user.save()
         form = CustomUserCreationForm(request.POST)

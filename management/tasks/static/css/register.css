@@ -103,3 +103,28 @@ messages {
     margin-top: 1rem;
     color: #512da8;
 }
+.role-selection {
+    margin-bottom: 15px;
+}
+
+.role-selection label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.role-selection select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    background: white;
+    cursor: pointer;
+    transition: border 0.3s;
+}
+
+.role-selection select:focus {
+    border-color: #007bff;
+    outline: none;
+}

@@ -5,14 +5,15 @@ from .models import CustomUser, Task
 
 class CustomUserAdmin(UserAdmin):
     # Поля для отображения в списке пользователей
-    list_display = ('username', 'name', 'is_staff', 'is_active')
-    list_filter = ('is_staff', 'is_superuser', 'is_blocked')  # Добавляем фильтр по блокировке
+    list_display = ('username', "role", 'name', 'is_staff', 'is_active')
+    list_filter = ("role", 'is_staff', 'is_superuser', 'is_blocked')  # Добавляем фильтр по блокировке
     # Поля, доступные для редактирования
     fieldsets = (
         (None, {'fields': ('username', 'password')}),
         ('Личная информация', {'fields': ('name', 'email')}),
         ('Права доступа', {'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions')}),
         ('Важные даты', {'fields': ('last_login', 'date_joined')}),
+        ('Дополнительные параметры', {'fields': ('role', 'is_leader')}),
     )
 
     # Поля при добавлении пользователя
@@ -21,6 +22,7 @@ class CustomUserAdmin(UserAdmin):
             'classes': ('wide',),
             'fields': ('username', 'name', 'password1', 'password2', 'is_staff', 'is_active'),
         }),
+        ('Дополнительные параметры', {'fields': ('role', 'is_leader')}),
     )
 
     search_fields = ('username', 'name')
