@@ -53,7 +53,7 @@ header nav ul li a {
     transition: background 0.3s;
 }
 
-header nav ul li a.btn {
+header nav ul li a.button1 {
     background: #8e44ad;
     color: white;
 }
@@ -141,7 +141,8 @@ header nav ul li a:hover {
 
 footer {
     text-align: center;
-    padding: 1rem;
+    height: 30%;
+    padding: 1.83em;
     background: #512da8;
     color: white;
 }
@@ -155,7 +156,7 @@ footer a:hover {
     text-decoration: underline;
 }
 /* Общий стиль для кнопок */
-.btn {
+.button1 {
   background-color: #007bff; /* основной цвет */
   color: white;
   padding: 8px 16px;
@@ -168,16 +169,16 @@ footer a:hover {
 }
 
 /* Эффект наведения */
-.btn:hover {
+.button1:hover {
   background-color: #6a1b9a;
 }
 
 /* Если нужно выделить кнопку logout своим стилем */
-.logout-btn {
+.logout-button1 {
   background-color: #8e44ad;
 }
 
-.logout-btn:hover {
+.logout-button1:hover {
   background-color: #c0392b;
 }
 
@@ -185,4 +186,47 @@ footer a:hover {
 .user-info {
   font-weight: bold;
   margin-right: 10px;
+}
+.task-column {
+  flex:0 0 auto;
+  width: 33.33333333%;
+  background: #f8f9fa;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  border-radius: 10px;
+    height: 100vh;
+}
+
+.task-list {
+  max-height: 359px; /* Ограничиваем высоту */
+  overflow-y: auto; /* Добавляем вертикальную прокрутку */
+  padding: 10px;
+  list-style: none;
+  min-height: 100px; /* Чтобы можно было бросать задачи в пустую колонку */
+}
+
+.draggable-task {
+  background: white;
+  border: 1px solid #ddd;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 5px;
+  cursor: grab;
+}
+
+.draggable-task:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+.dima{
+    height: 27.42rem;
+    justify-content: space-between;
+    --bs-bg-opacity:1;
+    background-color:rgba(var(--bs-light-rgb),1);
+
+    }
+
+.form-container {
+    position: relative;
+    z-index: 10; /* Форма поверх других элементов */
 }

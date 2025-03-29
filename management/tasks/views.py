@@ -1,12 +1,14 @@
-from idlelib.rpc import request_queue
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
-from .models import CustomUser
+from django.shortcuts import render, redirect, get_object_or_404
+from .models import CustomUser, Task
 from django.contrib import messages
 from django.contrib.auth import logout
 from django.contrib.auth import authenticate, login
 from .forms import CustomUserCreationForm
 from django.contrib.auth.forms import AuthenticationForm
+from django.views.decorators.csrf import csrf_protect, csrf_exempt
+import json
+from django.http import JsonResponse
 
 
 def home(request):
@@ -25,14 +27,10 @@ def register(request):
             messages.error(request, 'Пароли не совпадают.')
             return render(request, 'main/register.html')
 
-        # Проверка наличия пользователя с таким логином или почтой
+        # Проверка наличия пользователя с таким логином
         if CustomUser.objects.filter(username=username).exists():
             messages.error(request, 'Пользователь с таким логином уже существует.')
             return render(request, 'main/register.html')
-
-        # if CustomUser.objects.filter(email=email).exists():
-        #     messages.error(request, 'Пользователь с таким адресом электронной почты уже существует.')
-        #     return render(request, 'main/register.html')
 
         # Создание и сохранение пользователя
         user = CustomUser.objects.create_user(username=username, password=password)
@@ -76,6 +74,67 @@ def admin_dashboard(request):
         return redirect('login')
     return render(request, 'admin_dashboard.html')
 
+
+@csrf_protect
 @login_required
-def tasks(request):
-    return render(request,"main/tasks.html")
+def board_view(request):
+    if request.method == 'POST':
+        title = request.POST.get('title')
+        description = request.POST.get('description')
+        status = request.POST.get('status')
+
+        if title and description and status:
+            Task.objects.create(
+                title=title,
+                description=description,
+                status=status,
+                creator=request.user
+            )
+
+            return redirect('board')
+
+    tasks = Task.objects.filter(creator=request.user)
+    users = CustomUser.objects.all()
+    from .forms import TaskForm
+    form = TaskForm()
+    return render(request, 'main/tasks.html', {
+        'tasks': tasks,
+        'users': users,
+        'form': form,
+    })
+
+
+@csrf_protect
+@login_required
+def edit_task(request, task_id):
+    task = get_object_or_404(Task, id=task_id)
+    if request.method == 'POST':
+        task.title = request.POST.get('title')
+        task.description = request.POST.get('description')
+        task.status = request.POST.get('status')
+        task.save()
+        return redirect('board')
+
+
+@csrf_protect
+@login_required
+def delete_task(request, task_id):
+    task = get_object_or_404(Task, id=task_id)
+    task.delete()
+    return redirect('board')
+
+
+@csrf_exempt
+@login_required
+def update_status(request, task_id):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            new_status = data.get('status')
+            task = Task.objects.get(pk=task_id)
+            task.status = new_status
+            task.save()
+            return JsonResponse({'success': True})
+        except Exception as e:
+            return JsonResponse({'success': False, 'error': str(e)})
+    return JsonResponse({'success': False, 'error': 'Invalid method'})

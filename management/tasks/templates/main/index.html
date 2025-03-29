@@ -12,17 +12,15 @@
     <a href="/" class="logo">Task Manager</a>
     <nav>
         <ul style="display: flex; gap: 5px;">
-            <!--                <li><a href="#features">Функции</a></li>-->
-            <!--                <li><a href="#about">О сервисе</a></li>-->
             {% if not user.is_authenticated %}
-            <li><a href="{% url 'login' %}" class="btn">Вход</a></li>
-            <li><a href="{% url 'register' %}" class="btn">Регистрация</a></li>
+            <li><a href="{% url 'login' %}" class="button1">Вход</a></li>
+            <li><a href="{% url 'register' %}" class="button1">Регистрация</a></li>
             {% else %}
                 <li class="user-info">{{ user.username }}</li>
                 <li>
                   <form method="post" action="{% url 'logout' %}">
                     {% csrf_token %}
-                    <button type="submit" class="btn logout-btn">Выход</button>
+                    <button type="submit" class="button1 logout-button1">Выход</button>
                   </form>
                 </li>
             {% endif %}
@@ -34,7 +32,7 @@
 <section class="hero">
     <h1>Управляйте задачами легко и эффективно</h1>
     <p>Создавайте, отслеживайте и завершайте задачи без стресса</p>
-    <a href="tasks" class="cta">Начать сейчас</a>
+    <a href="board" class="cta">Начать сейчас</a>
 </section>
 
 <section id="features">

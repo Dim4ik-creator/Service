@@ -1,0 +1,130 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Board</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<header>
+    <a href="/" class="logo">Task Manager</a>
+    <nav>
+        <ul style="display: flex; gap: 5px;">
+            {% if not user.is_authenticated %}
+            <li><a href="{% url 'login' %}" class="btn">Вход</a></li>
+            <li><a href="{% url 'register' %}" class="btn">Регистрация</a></li>
+            {% else %}
+            <li class="user-info">{{ user.username }}</li>
+            <li>
+                <form method="post" action="{% url 'logout' %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn logout-btn">Выход</button>
+                </form>
+            </li>
+            {% endif %}
+        </ul>
+    </nav>
+</header>
+
+<div class="container py-5">
+    <h2 class="mb-4 display-6 fw-bold">Доска задач</h2>
+
+    <div class="d-flex gap-3">
+        <!-- Беклог -->
+        <div class="task-column">
+            <h5 class="fw-bold text-center">Беклог</h5>
+            <button class="btn btn-sm btn-outline-primary mb-2" data-bs-toggle="collapse"
+                    data-bs-target="#addForm-backlog" aria-expanded="false">+ Задача
+            </button>
+
+            <div class="collapse" id="addForm-backlog">
+                <form method="post" action="{% url 'board' %}" class="p-2">
+                    {% csrf_token %}
+                    <input type="hidden" name="status" value="backlog">
+                    <input type="text" name="title" class="form-control mb-2" placeholder="Заголовок" required>
+                    <textarea name="description" class="form-control mb-2" placeholder="Описание" required></textarea>
+                    <button type="submit" class="btn btn-sm btn-success">Сохранить</button>
+                </form>
+            </div>
+
+            <ul class="task-list" data-status="backlog">
+                {% for task in tasks %}
+                {% if task.status == "backlog" %}
+                <li class="draggable-task" data-task-id="{{ task.id }}" draggable="true">
+                    <strong>{{ task.title }}</strong>
+                </li>
+                {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+
+        <!-- В процессе -->
+        <div class="task-column">
+            <h5 class="fw-bold text-center">В процессе</h5>
+            <button class="btn btn-sm btn-outline-primary mb-2" data-bs-toggle="collapse"
+                    data-bs-target="#addForm-in_progress" aria-expanded="false">+ Задача
+            </button>
+
+            <div class="collapse" id="addForm-in_progress">
+                <form method="post" action="{% url 'board' %}" class="p-2">
+                    {% csrf_token %}
+                    <input type="hidden" name="status" value="in_progress">
+                    <input type="text" name="title" class="form-control mb-2" placeholder="Заголовок" required>
+                    <textarea name="description" class="form-control mb-2" placeholder="Описание" required></textarea>
+                    <button type="submit" class="btn btn-sm btn-success">Сохранить</button>
+                </form>
+            </div>
+
+            <ul class="task-list" data-status="in_progress">
+                {% for task in tasks %}
+                {% if task.status == "in_progress" %}
+                <li class="draggable-task" data-task-id="{{ task.id }}" draggable="true">
+                    <strong>{{ task.title }}</strong>
+                </li>
+                {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+
+        <!-- Выполнено -->
+        <div class="task-column">
+            <h5 class="fw-bold text-center">Выполнено</h5>
+            <button class="btn btn-sm btn-outline-primary mb-2" data-bs-toggle="collapse"
+                    data-bs-target="#addForm-done" aria-expanded="false">+ Задача
+            </button>
+
+            <div class="collapse" id="addForm-done">
+                <form method="post" action="{% url 'board' %}" class="p-2">
+                    {% csrf_token %}
+                    <input type="hidden" name="status" value="done">
+                    <input type="text" name="title" class="form-control mb-2" placeholder="Заголовок" required>
+                    <textarea name="description" class="form-control mb-2" placeholder="Описание" required></textarea>
+                    <button type="submit" class="btn btn-sm btn-success">Сохранить</button>
+                </form>
+            </div>
+
+            <ul class="task-list" data-status="done">
+                {% for task in tasks %}
+                {% if task.status == "done" %}
+                <li class="draggable-task" data-task-id="{{ task.id }}" draggable="true">
+                    <strong>{{ task.title }}</strong>
+                </li>
+                {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script src="{% static 'js/drag_drop_update_status.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<footer id="contact">
+    <p>© 2025 TaskManager. Все права защищены.</p>
+</footer>
+
+</body>
+</html>

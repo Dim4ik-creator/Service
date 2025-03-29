@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import CustomUser
+from .models import CustomUser, Task
 
 
 class CustomUserAdmin(UserAdmin):
@@ -29,3 +29,4 @@ class CustomUserAdmin(UserAdmin):
 
 # Регистрируем кастомную модель пользователя
 admin.site.register(CustomUser, CustomUserAdmin)
+admin.site.register(Task)

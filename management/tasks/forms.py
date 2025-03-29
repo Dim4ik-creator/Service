@@ -1,6 +1,6 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate
-from .models import CustomUser
+from .models import CustomUser, Task
 from django import forms
 
 
@@ -20,3 +20,13 @@ class CustomUserCreationForm(UserCreationForm):
     class Meta:
         model = CustomUser
         fields = ('username', 'name')
+        widgets = {
+            'title': forms.TextInput(attrs={'class': 'w-full border p-2 rounded'}),
+            'description': forms.Textarea(attrs={'class': 'w-full border p-2 rounded'}),
+            'status': forms.Select(attrs={'class': 'w-full border p-2 rounded'}),
+
+        }
+class TaskForm(forms.ModelForm):
+    class Meta:
+        model = Task
+        fields = ['title', 'description', 'status','creator']
